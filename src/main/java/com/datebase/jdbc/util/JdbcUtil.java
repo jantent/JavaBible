@@ -1,4 +1,4 @@
-package com.datebase.util;
+package com.datebase.jdbc.util;
 
 import java.io.BufferedInputStream;
 import java.io.FileInputStream;
@@ -21,7 +21,7 @@ public class JdbcUtil {
 	static {
 		try {
 			// 读取properties中的数据库配置信息
-			InputStream is =new BufferedInputStream(new FileInputStream("./src/main/test/db.properties"));
+			InputStream is =new BufferedInputStream(new FileInputStream("./src/main/resources/sql/db.properties"));
 			Properties prop = new Properties();
 			prop.load(is);
 
@@ -37,7 +37,7 @@ public class JdbcUtil {
 			// 加载数据库
 			Class.forName(driver);
 		} catch (Exception e) {
-			// TODO: handle exception
+			e.printStackTrace();
 		}
 	}
 

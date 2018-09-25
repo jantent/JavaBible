@@ -1,6 +1,7 @@
-package com.datebase.batch;
+package com.datebase.jdbc.batch;
 
-import jdbc.util.JdbcUtil;
+
+import com.datebase.jdbc.util.JdbcUtil;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

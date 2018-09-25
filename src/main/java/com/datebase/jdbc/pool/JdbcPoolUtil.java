@@ -1,4 +1,4 @@
-package com.datebase.pool;
+package com.datebase.jdbc.pool;
 
 import java.sql.Connection;
 import java.sql.ResultSet;

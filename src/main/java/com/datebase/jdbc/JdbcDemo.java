@@ -1,4 +1,4 @@
-package com.datebase;
+package com.datebase.jdbc;
 
 import java.sql.*;
 
@@ -6,7 +6,7 @@ public class JdbcDemo {
 
 	public static void main(String args[]) throws ClassNotFoundException, SQLException{
 		//数据库地址
-		String url = "jdbc:mysql://localhost:3306/jdbc";
+		String url = "jdbc:mysql://localhost:3306/mybatis";
 		//用户名
 		String usename = "root";
 		//密码
@@ -23,9 +23,10 @@ public class JdbcDemo {
 		ResultSet resultSet = statement.executeQuery(sql);
 		//5.从结果集中取出数据
 		while(resultSet.next()){
-			System.out.println("id = "+resultSet.getObject("ID"));
-			System.out.println("name = "+resultSet.getObject("name"));
-			System.out.println("pwd= "+resultSet.getObject("pwd"));
+			System.out.println("id = "+resultSet.getObject("id"));
+			System.out.println("username = "+resultSet.getObject("username"));
+			System.out.println("sex= "+resultSet.getObject("sex"));
+			System.out.println();
 		}
 		//6.关闭连接释放资源
 		resultSet.close();

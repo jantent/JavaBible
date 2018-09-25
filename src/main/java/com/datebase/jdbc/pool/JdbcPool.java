@@ -1,4 +1,4 @@
-package com.datebase.pool;
+package com.datebase.jdbc.pool;
 
 import javax.sql.DataSource;
 import java.io.BufferedInputStream;

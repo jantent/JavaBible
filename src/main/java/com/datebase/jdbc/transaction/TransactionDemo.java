@@ -1,6 +1,7 @@
-package com.datebase.transaction;
+package com.datebase.jdbc.transaction;
 
-import jdbc.util.JdbcUtil;
+
+import com.datebase.jdbc.util.JdbcUtil;
 
 import java.sql.*;
 

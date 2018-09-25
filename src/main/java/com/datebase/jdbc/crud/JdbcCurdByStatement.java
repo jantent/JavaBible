@@ -1,6 +1,7 @@
-package com.datebase.crud;
+package com.datebase.jdbc.crud;
 
-import jdbc.util.JdbcUtil;
+
+import com.datebase.jdbc.util.JdbcUtil;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -36,14 +37,14 @@ public class JdbcCurdByStatement {
 		JdbcCurdByStatement.rs = rs;
 	}
 
-	public static void insert(String value){
+	public static void insert(){
 		try {
 			//获取一个数据库连接
 			conn = JdbcUtil.getConnection();
 			//通过conn对象获取负责执行SQL命令的Statement对象
 			st = conn.createStatement();
 			//要执行的sql
-			String sql = "insert into user(ID,name,pwd) values(6,'test','456')";
+			String sql = "insert into user(username,sex) values('test','男')";
 			//执行插入操作
 			int num = st.executeUpdate(sql);
 			if(num>0){
@@ -57,6 +58,6 @@ public class JdbcCurdByStatement {
 
 
 	public static void main(String args[]){
-		JdbcCurdByStatement.insert("hello");
+		JdbcCurdByStatement.insert();
 	}
 }
