@@ -9,6 +9,7 @@ import io.netty.handler.codec.string.StringDecoder;
 import io.netty.handler.codec.string.StringEncoder;
 import io.netty.handler.timeout.IdleStateHandler;
 
+import java.nio.charset.Charset;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -55,8 +56,8 @@ public class HeartBeatServer {
         protected void initChannel(SocketChannel ch) throws Exception {
             ChannelPipeline pipeline = ch.pipeline();
             pipeline.addLast("ping", new IdleStateHandler(READ_WAIT_SECONDS, 0, 0, TimeUnit.SECONDS));
-            pipeline.addLast("decoder", new StringDecoder());
-            pipeline.addLast("encoder", new StringEncoder());
+            pipeline.addLast("decoder", new StringDecoder(Charset.forName("gbk")));
+            pipeline.addLast("encoder", new StringEncoder(Charset.forName("gbk")));
 
             pipeline.addLast("handler", new HeartbeatServerHandler());
         }
