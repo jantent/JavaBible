@@ -27,7 +27,7 @@ public class HeartBeatServer {
     /*
      * channel
      */
-    private static final int READ_WAIT_SECONDS = 5;
+    private static final int READ_WAIT_SECONDS = 10;
 
 
     public void start(){
