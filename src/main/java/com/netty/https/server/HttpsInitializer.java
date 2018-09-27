@@ -22,9 +22,7 @@ public class HttpsInitializer extends ChannelInitializer<SocketChannel> {
         ChannelPipeline p = ch.pipeline();
 
         // ssl 环境
-        SSLEngine sslEngine = ContextSSLFactory.getSslContext().createSSLEngine();
-        sslEngine.setUseClientMode(false);
-        sslEngine.setNeedClientAuth(false);
+        SSLEngine sslEngine = ContextSSLFactory.getInstance().getSslEngine();
         p.addLast("ssl",new SslHandler(sslEngine));
 
         p.addLast("codec",new HttpServerCodec());

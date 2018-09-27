@@ -6,6 +6,8 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.security.KeyStore;
 import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
+import java.util.UUID;
 
 /**
  * @author: tangJ
@@ -21,38 +23,66 @@ public class ContextSSLFactory {
     // keystore密码
     private static String keyStorePwd = "123456";
 
-    private static final SSLContext SSL_CONTEXT_S;
+    // ssl协议的版本
+    private static String sslVersion = "SSLv3";
+
+    // 随机数种子
+    private String seed = "78qr1sf5qwrrwe";
+
+    // 安全随机数
+    private SecureRandom secureRandom = new SecureRandom(seed.getBytes());
+
+    // ssl 环境
+    private SSLEngine sslEngine = null;
 
 
-    // 加载ssl环境
-    static {
-        SSLContext sslContext = null;
+    private static class Inner {
+        static ContextSSLFactory instance = new ContextSSLFactory();
+    }
+
+    public static ContextSSLFactory getInstance() {
+        return Inner.instance;
+    }
+
+    private ContextSSLFactory() {
+        init();
+    }
+
+    /**
+     * 获取已经创建好的ssl engine
+     * @return
+     */
+    public SSLEngine getSslEngine() {
+        return sslEngine;
+    }
+
+    /**
+     * 加载ssl 环境
+     */
+    private void init() {
         try {
-            sslContext = SSLContext.getInstance("SSLv3");
-        } catch (NoSuchAlgorithmException e1) {
-            e1.printStackTrace();
-        }
-        try {
-            if (getKeyManagersServer() != null && getTrustManagers() != null) {
-                sslContext.init(getKeyManagersServer(), getTrustManagers(), null);
-            }
+            KeyStore keyStore = getKeyStore();
+            TrustManager[] trustManagers = getTrustManagers(keyStore);
+            KeyManager[] keyManagers = getKeyManagersServer(keyStore);
+            SSLContext sslContext = SSLContext.getInstance(sslVersion);
 
+            // 默认不需要随机数种子，特殊情况再加上
+            sslContext.init(keyManagers, trustManagers, null);
+            sslContext.createSSLEngine().getSupportedCipherSuites();
+            sslEngine = sslContext.createSSLEngine();
+            sslEngine.setUseClientMode(false);
+            sslEngine.setNeedClientAuth(false);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        sslContext.createSSLEngine().getSupportedCipherSuites();
-        SSL_CONTEXT_S = sslContext;
-    }
-
-    public static SSLContext getSslContext() {
-        return SSL_CONTEXT_S;
     }
 
     /**
      * 加载keystore
+     *
      * @return
      */
-    private static KeyStore getKeyStore(){
+    private KeyStore getKeyStore() {
         FileInputStream is = null;
         KeyStore ks = null;
         try {
@@ -60,11 +90,11 @@ public class ContextSSLFactory {
             ks = KeyStore.getInstance("JKS");
             ks.load(is, keyStorePwd.toCharArray());
 
-        }catch (Exception e){
-           e.printStackTrace();
-        }finally {
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
             try {
-                if (is!=null){
+                if (is != null) {
                     is.close();
                 }
             } catch (IOException e) {
@@ -76,16 +106,17 @@ public class ContextSSLFactory {
 
     /**
      * 获取信任参数
+     *
      * @return TrustManager[]
      */
-    private static TrustManager[] getTrustManagers() {
+    private TrustManager[] getTrustManagers(KeyStore keyStore) {
 
         TrustManager[] kms = null;
         try {
             TrustManagerFactory keyFac = TrustManagerFactory.getInstance("SunX509");
-            keyFac.init(getKeyStore());
+            keyFac.init(keyStore);
             kms = keyFac.getTrustManagers();
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return kms;
@@ -93,16 +124,17 @@ public class ContextSSLFactory {
 
     /**
      * 获取服务端信参数
+     *
      * @return KeyManager[]
      */
-    private static KeyManager[]  getKeyManagersServer(){
+    private KeyManager[] getKeyManagersServer(KeyStore keyStore) {
         KeyManager[] kms = null;
         try {
             // 获得KeyManagerFactory对象. 初始化位默认算法
             KeyManagerFactory keyFac = KeyManagerFactory.getInstance("SunX509");
-            keyFac.init(getKeyStore(),keyStorePwd.toCharArray());
+            keyFac.init(keyStore, keyStorePwd.toCharArray());
             kms = keyFac.getKeyManagers();
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return kms;

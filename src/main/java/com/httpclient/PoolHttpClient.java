@@ -48,11 +48,11 @@ public class PoolHttpClient {
     private static final int DEFAULT_POOL_MAX_PER_ROUTE = 200;
 
     // 默认连接超时时间
-    private static final int DEFAULT_CONNECT_TIMEOUT = 5000;
+    private static final int DEFAULT_CONNECT_TIMEOUT = 10 * 1000;
     // 默认从连接池获取连接超时时间
-    private static final int DEFAULT_CONNECT_REQUEST_TIMEOUT = 5000;
+    private static final int DEFAULT_CONNECT_REQUEST_TIMEOUT = 10 * 1000;
     // 默认TCP传输 超时时间
-    private static final int DEFAULT_SOCKET_TIMEOUT = 2000;
+    private static final int DEFAULT_SOCKET_TIMEOUT = 10 * 1000;
 
 
     // 连接池管理器

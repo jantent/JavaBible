@@ -5,6 +5,7 @@ import org.apache.http.conn.ssl.SSLConnectionSocketFactory;
 import org.apache.http.conn.ssl.TrustStrategy;
 import org.apache.http.ssl.SSLContextBuilder;
 
+import java.security.SecureRandom;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
 
@@ -14,6 +15,13 @@ import java.security.cert.X509Certificate;
  * @description: 客户端ssl环境
  */
 public class ClientSslFactory {
+
+    // 随机数种子
+    private String seed = "78qr1sf5qwrrwe";
+
+    // 安全随机数
+    private SecureRandom secureRandom = new SecureRandom(seed.getBytes());
+
     private static class Inner {
         static ClientSslFactory instance = new ClientSslFactory();
     }
@@ -34,6 +42,9 @@ public class ClientSslFactory {
 
     private void init() throws Exception {
         SSLContextBuilder builder = new SSLContextBuilder();
+
+        // 默认不需要随机数，特殊情况再加上
+        builder.setSecureRandom(null);
         // 全部信任，不对服务端的证书进行校验
         builder.loadTrustMaterial(null, new TrustStrategy() {
             @Override

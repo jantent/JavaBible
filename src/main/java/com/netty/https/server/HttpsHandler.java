@@ -50,7 +50,7 @@ public class HttpsHandler extends SimpleChannelInboundHandler<FullHttpRequest>{
             FullHttpResponse response = new DefaultFullHttpResponse(HttpVersion.HTTP_1_1, respStatus, bufRep);
             if (keepAlive) {
                 response.headers().set(HttpHeaderNames.CONTENT_LENGTH, response.content().readableBytes());
-                response.headers().set(HttpHeaderNames.CONNECTION,"keepalive");
+                response.headers().set(HttpHeaderNames.CONNECTION,HttpHeaderValues.KEEP_ALIVE);
                 ctx.writeAndFlush(response);
             } else {
                 ctx.writeAndFlush(response).addListener(ChannelFutureListener.CLOSE);
