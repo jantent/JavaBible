@@ -1,4 +1,4 @@
-package com.source.string;
+package com.source.lang;
 
 import org.junit.Test;
 
