@@ -11,17 +11,17 @@ import java.security.cert.X509Certificate;
  */
 public class CertAndKey {
     /**
-     * x509cert ֤��
+     * x509cert
      */
     private X509Certificate x509Certificate;
 
     /**
-     * ˽Կ
+     * 私钥
      */
     private PrivateKey privateKey;
 
     /**
-     * ��Կ
+     * 公钥
      */
     private PublicKey publicKey;
 

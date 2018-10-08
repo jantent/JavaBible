@@ -18,7 +18,7 @@ public class ContextSSLFactory {
 
 
     // keystore地址
-    private static String keyStorePath = "./src/main/resources/keystore/keystore.jks";
+    private static String keyStorePath = "./src/main/resources/keystore/test.jks";
 
     // keystore密码
     private static String keyStorePwd = "123456";
