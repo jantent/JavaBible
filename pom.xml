@@ -14,6 +14,7 @@
 
     <dependencies>
 
+        <!-- BC包-->
         <dependency>
             <groupId>org.bouncycastle</groupId>
             <artifactId>bcpkix-jdk15on</artifactId>
@@ -42,35 +43,53 @@
             <scope>runtime</scope>
         </dependency>
 
+        <!-- 常用工具包-->
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
             <version>3.5</version>
         </dependency>
 
+        <!-- 测试 -->
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <version>4.12</version>
         </dependency>
 
+        <!-- http客户端-->
         <dependency>
             <groupId>org.apache.httpcomponents</groupId>
             <artifactId>httpclient</artifactId>
             <version>4.5.3</version>
         </dependency>
 
+        <!-- zk客户端-->
         <dependency>
             <groupId>org.apache.curator</groupId>
             <artifactId>curator-recipes</artifactId>
             <version>2.12.0</version>
         </dependency>
 
-
+        <!-- JSON处理工具-->
         <dependency>
             <groupId>com.google.code.gson</groupId>
             <artifactId>gson</artifactId>
             <version>2.8.0</version>
+        </dependency>
+
+        <!-- redis客户端-->
+        <dependency>
+            <groupId>redis.clients</groupId>
+            <artifactId>jedis</artifactId>
+            <version>2.9.0</version>
+        </dependency>
+
+        <!-- kafka客户端-->
+        <dependency>
+            <groupId>org.apache.kafka</groupId>
+            <artifactId>kafka-clients</artifactId>
+            <version>1.1.1</version>
         </dependency>
     </dependencies>
 </project>
