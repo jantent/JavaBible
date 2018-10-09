@@ -1,9 +1,13 @@
 package com.netty.https.sslcontext;
 
+import com.MainApplication;
+
 import javax.net.ssl.*;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.security.KeyStore;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
@@ -18,7 +22,7 @@ public class ContextSSLFactory {
 
 
     // keystore地址
-    private static String keyStorePath = "./src/main/resources/keystore/test.jks";
+    private static String keyStorePath = "keystore/test.jks";
 
     // keystore密码
     private static String keyStorePwd = "123456";
@@ -77,6 +81,19 @@ public class ContextSSLFactory {
         }
     }
 
+    public static String getFilePath() {
+        String path = MainApplication.class.getProtectionDomain().getCodeSource().getLocation().getPath();
+        path = path.substring(1, path.length());
+        try {
+            path = URLDecoder.decode(path, "utf-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        int lastIndex = path.lastIndexOf("/") + 1;
+        path = path.substring(0, lastIndex);
+        return path;
+
+    }
     /**
      * 加载keystore
      *
@@ -86,7 +103,7 @@ public class ContextSSLFactory {
         FileInputStream is = null;
         KeyStore ks = null;
         try {
-            is = new FileInputStream(new File(keyStorePath));
+            is = new FileInputStream(new File(getFilePath()+keyStorePath));
             ks = KeyStore.getInstance("JKS");
             ks.load(is, keyStorePwd.toCharArray());
 

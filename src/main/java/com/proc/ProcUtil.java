@@ -65,8 +65,8 @@ public class ProcUtil {
 
     @Test
     public void testCmd() throws Exception{
-//        String result = execWithResult(cmd);
-//        System.out.println(result);
-        execWithOutResult("shutdown -s -t 00");
+        String result = execWithResult(cmd);
+        System.out.println(result);
+//        execWithOutResult("shutdown -s -t 00");
     }
 }
