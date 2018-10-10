@@ -22,7 +22,7 @@ public class ContextSSLFactory {
 
 
     // keystore地址
-    private static String keyStorePath = "keystore/test.jks";
+    private static String keyStorePath = "keystore/keystore.jks";
 
     // keystore密码
     private static String keyStorePwd = "123456";

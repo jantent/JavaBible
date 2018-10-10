@@ -49,6 +49,9 @@ public class ClientSslFactory {
         builder.loadTrustMaterial(null, new TrustStrategy() {
             @Override
             public boolean isTrusted(X509Certificate[] x509Certificates, String s) throws CertificateException {
+                for (int i= 0;i<x509Certificates.length;i++){
+                    System.out.println("服务端的证书为： "+x509Certificates[i].toString());
+                }
                 return true;
             }
         });
