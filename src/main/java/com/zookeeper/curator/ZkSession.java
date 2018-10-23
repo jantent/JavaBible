@@ -14,9 +14,11 @@ import org.junit.Test;
  * @description:
  */
 public class ZkSession {
-    private static String addr = "10.0.90.102:2181";
 
-    private static String nodePath = "/zk-book/test";
+    // 对于集群的情况，只需要向其中一个发送就可了，数据会自动同步
+    private static String addr = "10.0.90.52:2181,10.0.90.53:2181,10.0.90.54:2181";
+
+    private static String nodePath = "/rng";
 
     private CuratorFramework getClient() {
         RetryPolicy retryPolicy = new ExponentialBackoffRetry(1000, 3);
@@ -71,7 +73,7 @@ public class ZkSession {
         CuratorFramework client = getClient();
         client.start();
 
-        String nodeContent = "你好啊";
+        String nodeContent = "emm";
 
         // 创建节点
         client.create().creatingParentsIfNeeded()
