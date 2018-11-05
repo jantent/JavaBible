@@ -49,7 +49,7 @@ public class JdbcBatch {
 			conn = JdbcUtil.getConnection();
 			String sql = "insert into batch(id,name) values(?,?)";
 			ps = conn.prepareStatement(sql);
-			for(int i=1;i<10000;i++){
+			for(int i=1;i<1000000;i++){
 				ps.setInt(1, i);
 				ps.setString(2, "c"+i);
 				ps.addBatch();
@@ -67,7 +67,7 @@ public class JdbcBatch {
 			JdbcUtil.release(conn, st, rs);
 		}
 		long endtime = System.currentTimeMillis();
-		System.out.println("程序花费时间为 "+(endtime-starttime)/1000+"��");
+		System.out.println("程序花费时间为 "+(endtime-starttime)/1000+"分钟");
 	}
 	
 	

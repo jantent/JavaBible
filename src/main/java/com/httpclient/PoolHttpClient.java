@@ -192,16 +192,6 @@ public class PoolHttpClient {
         return null;
     }
 
-    private HttpEntity getUrlEncodedFormEntity(Map<String, Object> params) {
-        List<NameValuePair> pairList = new ArrayList<NameValuePair>(params.size());
-        for (Map.Entry<String, Object> entry : params.entrySet()) {
-            NameValuePair pair = new BasicNameValuePair(entry.getKey(), entry
-                    .getValue().toString());
-            pairList.add(pair);
-        }
-        return new UrlEncodedFormEntity(pairList, Charset.forName("UTF-8"));
-    }
-
     private String getUrlWithParams(String url, Map<String, Object> params) {
         boolean first = true;
         StringBuilder sb = new StringBuilder(url);

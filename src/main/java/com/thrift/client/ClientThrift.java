@@ -20,7 +20,7 @@ import java.nio.ByteBuffer;
  * @description:
  */
 public class ClientThrift {
-    private static String ip = "10.0.90.50";
+    private static String ip = "192.168.61.132";
 
     private static int port = 5368;
 

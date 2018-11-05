@@ -107,6 +107,13 @@
             <version>0.11.0</version>
         </dependency>
 
+        <!-- mybatis -->
+        <dependency>
+            <groupId>org.mybatis</groupId>
+            <artifactId>mybatis</artifactId>
+            <version>3.4.2</version>
+        </dependency>
+
     </dependencies>
 
     <build>
@@ -126,7 +133,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>com.MainApplication</mainClass>
+                            <mainClass>com.thrift.server.ServerMainApp</mainClass>
                         </manifest>
                     </archive>
                     <descriptorRefs>

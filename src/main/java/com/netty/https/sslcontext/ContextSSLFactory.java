@@ -1,6 +1,5 @@
 package com.netty.https.sslcontext;
 
-import com.MainApplication;
 
 import javax.net.ssl.*;
 import java.io.File;
@@ -9,9 +8,7 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.security.KeyStore;
-import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
-import java.util.UUID;
 
 /**
  * @author: tangJ
@@ -82,7 +79,7 @@ public class ContextSSLFactory {
     }
 
     public static String getFilePath() {
-        String path = MainApplication.class.getProtectionDomain().getCodeSource().getLocation().getPath();
+        String path = ContextSSLFactory.class.getProtectionDomain().getCodeSource().getLocation().getPath();
         path = path.substring(1, path.length());
         try {
             path = URLDecoder.decode(path, "utf-8");
