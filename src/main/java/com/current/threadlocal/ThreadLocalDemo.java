@@ -6,13 +6,28 @@ package com.current.threadlocal;
  * @description:
  */
 public class ThreadLocalDemo {
-    private ThreadLocal<String> threadLocal = new ThreadLocal<>();
 
-    static class task implements Runnable{
 
-        @Override
-        public void run() {
+    public static void main(String args[]) {
+        Task task = new Task();
+        Thread threadA = new Thread(task, "threadA");
+        Thread threadB = new Thread(task, "threadB");
+        Thread threadC = new Thread(task, "threadC");
 
+        threadA.start();
+        threadB.start();
+        threadC.start();
+    }
+}
+
+class Task implements Runnable {
+
+    @Override
+    public void run() {
+        for (int i = 0; i < 3; i++) {
+            ThreadUtil.threadLocal.set(i);
+            String threadName = Thread.currentThread().getName();
+            System.out.println(threadName+"get value:  "+ThreadUtil.threadLocal.get());
         }
     }
 }
