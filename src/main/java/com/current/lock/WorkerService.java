@@ -15,14 +15,14 @@ public class WorkerService {
 
     public void executeOne() {
         try {
-            lock.tryLock(500, TimeUnit.MICROSECONDS);
+            lock.lock();
             while (nextThread != 1) {
                 conditionA.await();
             }
             nextThread = 2;
             conditionB.signal();
-            System.out.println(Thread.currentThread().getName() + "work");
-
+            System.out.println(Thread.currentThread().getName() + " work");
+            Thread.sleep(500);
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
@@ -32,13 +32,14 @@ public class WorkerService {
 
     public void executeTwo() {
         try {
-            lock.tryLock(500, TimeUnit.MICROSECONDS);
+            lock.lock();
             while (nextThread != 2) {
                 conditionB.await();
             }
             nextThread = 3;
             conditionC.signal();
-            System.out.println(Thread.currentThread().getName() + "work");
+            System.out.println(Thread.currentThread().getName() + " work");
+            Thread.sleep(500);
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
@@ -48,13 +49,14 @@ public class WorkerService {
 
     public void executeThree() {
         try {
-            lock.tryLock(500, TimeUnit.MICROSECONDS);
+            lock.lock();
             while (nextThread != 3) {
                 conditionC.await();
             }
             nextThread = 1;
             conditionA.signal();
-            System.out.println(Thread.currentThread().getName() + "work");
+            System.out.println(Thread.currentThread().getName() + " work");
+            Thread.sleep(500);
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
