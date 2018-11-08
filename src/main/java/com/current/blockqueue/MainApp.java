@@ -1,4 +1,4 @@
-package com.current.block;
+package com.current.blockqueue;
 
 /**
  * @author: tangJ

@@ -1,22 +1,22 @@
-package com.current.block;
+package com.current.blockqueue;
 
 /**
  * @author: tangJ
- * @Date: 2018/11/7 16:30
+ * @Date: 2018/11/7 16:29
  * @description:
  */
-public class ConsumerTask implements Runnable{
+public class ProduceTask implements Runnable{
     private WorkerServer workerServer;
 
-    public ConsumerTask(WorkerServer workerServer) {
+    public ProduceTask(WorkerServer workerServer) {
         this.workerServer = workerServer;
     }
 
     @Override
     public void run() {
-        for (;;){
+        for (;;) {
             try {
-                workerServer.consume();
+                workerServer.produce();
             } catch (Exception e) {
                 e.printStackTrace();
             }
