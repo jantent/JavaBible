@@ -26,7 +26,7 @@ public class JanThreadPool extends ThreadPoolExecutor {
     @Override
     protected void beforeExecute(Thread t, Runnable r) {
         super.beforeExecute(t, r);
-        logger.info(String.format("%s start", t.getName()));
+//        logger.info(String.format("%s start", t.getName()));
         startTimeLocal.set(System.nanoTime());
     }
 
@@ -37,7 +37,7 @@ public class JanThreadPool extends ThreadPoolExecutor {
             long taskTime = endTime - startTimeLocal.get();
             numTasks.incrementAndGet();
             totalTime.addAndGet(taskTime);
-            logger.info(String.format("Thread %s: end %s, time=%dns", t, r, taskTime));
+//            logger.info(String.format("Thread %s: end %s, time=%dns", t, r, taskTime));
         } finally {
             super.afterExecute(r, t);
         }
