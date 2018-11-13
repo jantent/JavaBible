@@ -1,10 +1,7 @@
 package com.httpclient;
 
 import com.httpclient.sslcontext.ClientSslFactory;
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpRequest;
-import org.apache.http.HttpStatus;
-import org.apache.http.NameValuePair;
+import org.apache.http.*;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
@@ -137,6 +134,7 @@ public class PoolHttpClient {
         // *) 构建GET请求头
         String apiUrl = getUrlWithParams(url, params);
         HttpGet httpGet = new HttpGet(apiUrl);
+        httpGet.setHeader("User-Agent","Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36");
 
         // *) 设置header信息
         if (headers != null && headers.size() > 0) {
@@ -158,6 +156,8 @@ public class PoolHttpClient {
     public String doPost(String apiUrl,String content) {
 
         HttpPost httpPost = new HttpPost(apiUrl);
+
+        httpPost.setHeader("User-Agent","Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36");
 
         HttpEntity entityReq = new StringEntity(content,Charset.forName("utf-8"));
         httpPost.setEntity(entityReq);

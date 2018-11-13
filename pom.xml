@@ -11,6 +11,16 @@
 
     <packaging>jar</packaging>
 
+    <properties>
+        <argLine>-Dfile.encoding=UTF-8</argLine>
+    </properties>
+
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>1.5.1.RELEASE</version>
+        <relativePath/>
+    </parent>
 
     <dependencies>
 
@@ -113,6 +123,20 @@
             <artifactId>mybatis</artifactId>
             <version>3.4.2</version>
         </dependency>
+
+        <!-- AOP切面支持 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-aop</artifactId>
+        </dependency>
+
+        <!-- json工具 -->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+            <version>1.2.47</version>
+        </dependency>
+
 
     </dependencies>
 
