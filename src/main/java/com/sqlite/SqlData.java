@@ -6,11 +6,13 @@ import java.util.List;
 /**
  * @author: tangJ
  * @Date: 2018/11/27 16:44
- * @description:
+ * @description: sql对象
  */
 public class SqlData {
-    private String tableName;// 表名
-    private String tableSql;// 表SQL
+    // 表名
+    private String tableName;
+    // 建表SQL
+    private String tableSql;
     private List<String> indexSql = new ArrayList<String>();// 索引SQL
 
     public SqlData() {
