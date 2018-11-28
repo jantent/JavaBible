@@ -47,7 +47,12 @@ public class CreateDbUtil {
         return nameToTable;
     }
 
-
+    /**
+     * 解析数据库表名
+     *
+     * @param sql
+     * @return
+     */
     private static final String parseTableToName(String sql) {
         // 解析SQL获取其中的表面
         int startIndex = sql.indexOf(" TABLE ");
@@ -63,6 +68,12 @@ public class CreateDbUtil {
         return sql.substring(startIndex + 7, endIndex).trim();
     }
 
+    /**
+     * 解析索引名称
+     *
+     * @param sql
+     * @return
+     */
     private static final String parseIndexToName(String sql) {
         int startIndex = sql.indexOf(" INDEX ");
         if (startIndex < 0) {
@@ -83,6 +94,12 @@ public class CreateDbUtil {
     }
 
 
+    /**
+     * 构造SqlData对象,封装建表语句
+     *
+     * @param nameToTable
+     * @param sql
+     */
     private static final void addSqlData(Map<String, SqlData> nameToTable, String sql) {
         SqlData sqlData;
         String tableName = parseTableToName(sql);

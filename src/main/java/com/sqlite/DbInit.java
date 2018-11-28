@@ -7,62 +7,46 @@ import java.util.logging.Logger;
 /**
  * @author: tangJ
  * @Date: 2018/11/27 17:20
- * @description:
+ * @description: 数据库初始化，创建表操作
  */
-public class SqliteHelper {
+public class DbInit {
 
-    private Connection connection = null;
-    private Logger logger = Logger.getLogger(SqliteHelper.class.getName());
-    static final String dbName = "bible.db";
+    private Logger logger = Logger.getLogger(DbInit.class.getName());
+    private static final String dbName = "bible.db";
+    private static final String sqlName = "sqlite.sql";
 
-
-    private void init() throws Exception {
-        try {
-            Class.forName("org.sqlite.JDBC");
-            connection = DriverManager.getConnection("jdbc:sqlite:" + dbName);
-        } catch (Exception e) {
-            logger.info(e.getMessage());
-        }
-        logger.info("Opened database successfully");
-    }
 
     private static class Inner {
-        static SqliteHelper sqliteHelper = new SqliteHelper();
+        static DbInit sqliteHelper = new DbInit();
     }
 
-    private SqliteHelper() {
-        try {
-            init();
-        } catch (Exception e) {
-            logger.info(e.getMessage());
-        }
+    private DbInit() {
     }
 
-    public static SqliteHelper getInstance() {
+    public static DbInit getInstance() {
         return Inner.sqliteHelper;
     }
-
-    public Connection getConnection() {
-        return connection;
-    }
-
-    static final String sqlName = "sqlite.sql";
 
     /**
      * 获取resource目录下的 sql文件
      *
      * @return
      */
-    public String getSqlPath() {
+    private String getSqlPath() {
         String filePath = this.getClass().getResource("/sql/" + sqlName).getPath();
         return filePath;
     }
 
+    /**
+     * 系统初始化，创建表
+     *
+     * @throws Exception
+     */
     public void createTable() throws Exception {
         String sqlPath = getSqlPath();
         Map<String, SqlData> nameToTable = CreateDbUtil.parseFileToTable(sqlPath);
 
-        Connection connection = SqliteHelper.getInstance().getConnection();
+        Connection connection = DruidDb.getInstance().getConn();
         Statement stmt = connection.createStatement();
         for (Map.Entry<String, SqlData> entry : nameToTable.entrySet()) {
             String tableName = entry.getKey();
