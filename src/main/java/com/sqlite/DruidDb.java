@@ -1,10 +1,10 @@
 package com.sqlite;
 
 import com.alibaba.druid.pool.DruidDataSource;
+import org.apache.log4j.Logger;
 
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.logging.Logger;
 
 /**
  * @author: tangJ
@@ -13,7 +13,7 @@ import java.util.logging.Logger;
  */
 public class DruidDb {
 
-    private Logger logger = Logger.getLogger(DruidDb.class.getName());
+    private Logger logger = Logger.getLogger(this.getClass());
     private DruidDataSource dataSource = new DruidDataSource();
     private static final String dbName = "bible.db";
     private static final String sqlName = "sqlite.sql";

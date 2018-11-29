@@ -1,8 +1,9 @@
 package com.sqlite;
 
+import org.apache.log4j.Logger;
+
 import java.sql.*;
 import java.util.Map;
-import java.util.logging.Logger;
 
 /**
  * @author: tangJ
@@ -11,7 +12,8 @@ import java.util.logging.Logger;
  */
 public class DbInit {
 
-    private Logger logger = Logger.getLogger(DbInit.class.getName());
+
+    private Logger logger = Logger.getLogger(this.getClass());
     private static final String dbName = "bible.db";
     private static final String sqlName = "sqlite.sql";
 
