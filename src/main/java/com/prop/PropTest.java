@@ -12,7 +12,7 @@ public class PropTest {
 
     public static void main(String args[]) throws Exception {
         BibleConfig bibleConfig = BibleConfig.getInstance();
-        System.out.println(bibleConfig.name);
-        System.out.println(bibleConfig.age);
+        bibleConfig.name="小王";
+        bibleConfig.save();
     }
 }

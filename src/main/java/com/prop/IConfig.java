@@ -13,7 +13,7 @@ public abstract class IConfig {
     }
 
     public void save(){
-
+        ConfigStore.saveToFile(this);
     };
 
     protected void init(){

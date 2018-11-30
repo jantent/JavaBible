@@ -2,12 +2,9 @@ package com.prop;
 
 import org.apache.log4j.Logger;
 
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
-import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
@@ -17,19 +14,20 @@ import java.util.*;
  */
 public abstract class ConfigStore {
     private static Logger logger = Logger.getLogger(ConfigStore.class);
+    private static final Map<String, String> propMap = new LinkedHashMap<>();
+
 
     private static final String propFileName = "config.properties";
 
     /**
      * 1.从配置文件中加载
      * 2.反射到对象中
-     * 3.
      *
      * @param config
      */
 
-    public static void getFromStore(IConfig config) {
-        Map<String, String> propMap = loadFile();
+    public synchronized static void getFromStore(IConfig config) {
+        loadFile();
         Field[] fields = config.getClass().getFields();
         try {
             for (Field field : fields) {
@@ -49,24 +47,56 @@ public abstract class ConfigStore {
     }
 
     /**
+     * 1.获取对象中的值
+     * 2.反射出对象值
+     *
+     * @param config
+     */
+    public synchronized static void saveToFile(IConfig config) {
+        OutputStreamWriter osw = null;
+        try {
+            Field[] fields = config.getClass().getFields();
+            for (Field field : fields) {
+                // 获取常量修饰
+                int mod = field.getModifiers();
+                if ((!Modifier.isPublic(mod)) || Modifier.isFinal(mod) || Modifier.isStatic(mod)) {
+                    continue;
+                }
+                // 属性值
+                String value = field.get(config).toString();
+                // key值
+                String key = field.getName();
+                propMap.put(key, value);
+            }
+
+            Properties properties = new Properties();
+            properties.putAll(propMap);
+            FileWriter fileWriter = new FileWriter(new File(propFileName));
+            properties.store(fileWriter,"");
+
+        } catch (Exception e) {
+            logger.error("存储配置失败", e);
+        }
+
+    }
+
+    /**
      * 从配置文件中读取数据
      *
      * @return
      */
-    private static Map<String, String> loadFile() {
-        Map<String, String> map = null;
+    private synchronized static void loadFile() {
         InputStreamReader isr = null;
         try {
-            map = new HashMap<>();
             Properties prop = new Properties();
 
-            isr = new InputStreamReader(new FileInputStream(propFileName), "GBK");
+            isr = new InputStreamReader(new FileInputStream(propFileName), "UTF-8");
             prop.load(isr);
             Enumeration en = prop.propertyNames();
             while (en.hasMoreElements()) {
                 String key = (String) en.nextElement();
                 String value = prop.getProperty(key);
-                map.put(key, value);
+                propMap.put(key, value);
             }
         } catch (Exception e) {
             logger.error("加载配置失败", e);
@@ -79,7 +109,6 @@ public abstract class ConfigStore {
                 }
             }
         }
-        return map;
     }
 
 
@@ -90,8 +119,8 @@ public abstract class ConfigStore {
      * @param ignoreNull : true:忽略value = null的值
      */
     @SuppressWarnings("unchecked")
-    private static final void setObjField(Object obj, Field field, Object value,
-                                          boolean ignoreNull) throws Exception {
+    private synchronized static final void setObjField(Object obj, Field field, Object value,
+                                                       boolean ignoreNull) throws Exception {
         try {
 
             // 配置文件中为null的情况

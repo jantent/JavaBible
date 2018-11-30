@@ -9,7 +9,6 @@ import java.util.Base64;
 /**
  * @author: tangJ
  * @Date: 2018/9/25 17:21
- * @Description: 证书启动类
  */
 public class MainAppTest {
 
@@ -20,7 +19,6 @@ public class MainAppTest {
     static String alias = "test";
 
     /**
-     * 生成证书
      *
      * @throws Exception
      */
@@ -34,7 +32,6 @@ public class MainAppTest {
     }
 
     /**
-     * 从keyStore取出证书
      *
      * @throws Exception
      */
@@ -47,7 +44,6 @@ public class MainAppTest {
     }
 
     /**
-     * 从KeyStore取出私钥
      *
      * @throws Exception
      */

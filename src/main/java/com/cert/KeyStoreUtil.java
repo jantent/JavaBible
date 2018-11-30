@@ -21,7 +21,6 @@ import java.util.Enumeration;
 public class KeyStoreUtil {
 
     /**
-     * 创建keyStore文件
      *
      * @param filename
      * @param password
@@ -41,7 +40,6 @@ public class KeyStoreUtil {
     }
 
     /**
-     * 创建 空的KEYstore
      * @return
      * @throws GeneralSecurityException
      * @throws IOException
@@ -53,7 +51,6 @@ public class KeyStoreUtil {
     }
 
     /**
-     * 保存到keystore中
      *
      * @param ks
      * @param filename
@@ -73,7 +70,6 @@ public class KeyStoreUtil {
     }
 
     /**
-     * 获取keystore
      * @param filePath
      * @param password
      * @return
@@ -104,7 +100,6 @@ public class KeyStoreUtil {
     }
 
     /**
-     * 从keystore中获取证书
      * @param filePath
      * @param passWord
      * @param alias
@@ -122,7 +117,6 @@ public class KeyStoreUtil {
     }
 
     /**
-     * 从keystore中获取私钥
      * @param filePath
      * @param passWord
      * @param alias

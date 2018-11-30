@@ -27,9 +27,7 @@ import java.util.Random;
  */
 public class CertBuilder {
 
-    /**
-     * 证书签名算法
-     */
+
     private static String alg = "SHA256WITHRSA";
 
     static {
@@ -55,34 +53,29 @@ public class CertBuilder {
     }
 
 
-    /**
-     * 生成证书
-     *
-     * @return
-     */
+
     public CertAndKey generateCert() {
         KeyPair keyPair = kpg.generateKeyPair();
         PublicKey pubKey = keyPair.getPublic();
         PrivateKey priKey = keyPair.getPrivate();
 
-        // 开始日期
+
         Date beginDate = new Date();
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(new Date());
         calendar.add(Calendar.YEAR, 3);
-        // 截止日期
+
         Date expireDate = calendar.getTime();
 
-        // 证书序列号
+
         BigInteger serialNumber = BigInteger.probablePrime(32, new Random());
 
 
-        // 发行者DN,使用者DN
+
         String isuuerString = "CN=ROOTCA,L=shanghai,ST=shanghai";
         X500Name issuerDN = new X500Name(isuuerString);
         X500Name subjectDN = new X500Name(isuuerString);
 
-        // 证书签名
         final byte[] signData;
         try {
             Signature signature = Signature.getInstance("SHA256withRSA");
@@ -91,22 +84,20 @@ public class CertBuilder {
             signData = signature.sign();
         } catch (Exception e) {
             e.printStackTrace();
-            System.out.println("证书签名失败");
+            System.out.println("证锟斤拷签锟斤拷失锟斤拷");
         }
 
         SubjectPublicKeyInfo subjectPublicKeyInfo = null;
         try {
             subjectPublicKeyInfo = SubjectPublicKeyInfo.getInstance(new ASN1InputStream(pubKey.getEncoded()).readObject());
         } catch (IOException e) {
-            System.out.println("证书主题构造失败");
+            System.out.println("证锟斤拷锟斤拷锟解构锟斤拷失锟斤拷");
         }
 
-        // build证书
         X509v3CertificateBuilder builder = new X509v3CertificateBuilder(issuerDN, serialNumber, beginDate, expireDate, subjectDN, subjectPublicKeyInfo);
 
         ContentSigner contentSigner = null;
         try {
-            // 证书是自签的，用自己的私钥
             contentSigner = new JcaContentSignerBuilder(alg).build(priKey);
         } catch (OperatorCreationException e) {
             e.printStackTrace();
