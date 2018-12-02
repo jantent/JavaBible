@@ -4,6 +4,10 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 import org.junit.Test;
 
 /**
@@ -24,7 +28,12 @@ public class HttpClientMainApp {
     public void testGet() {
         PoolHttpClient httpClient = new PoolHttpClient();
         String resp = httpClient.doGet(getUrl);
-        System.out.println(resp);
+//        System.out.println(resp);
+        Document document = Jsoup.parse(resp);
+        Elements links = document.getElementsByClass("content__list--item");
+        for (Element element:links){
+            System.out.println(element.toString());;
+        }
     }
 
     @Test
