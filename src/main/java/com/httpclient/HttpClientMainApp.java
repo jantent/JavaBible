@@ -17,7 +17,9 @@ import org.junit.Test;
  */
 public class HttpClientMainApp {
 
+
     static String getUrl = "https://www.hao123.com";
+
     static String postUrl = "https://127.0.0.1:8443/test";
 
     private  static String ipUrlStr = "http://ip.taobao.com/service/getIpInfo.php?ip=";
