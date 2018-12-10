@@ -18,6 +18,7 @@ import org.junit.Test;
 public class HttpClientMainApp {
 
 
+
     static String getUrl = "https://www.google.com";
 
     static String postUrl = "https://127.0.0.1:8443/test";
