@@ -26,3 +26,4 @@ hs_err_pid*
 JavaBible.iml
 /upload
 *.txt
+/target

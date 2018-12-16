@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+        <!DOCTYPE configuration
+                PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+                "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+
+    <typeAliases>
+        <!--
+        使用别名
+        <typeAlias type="mybatis.eneity.User" alias="user"/>
+        -->
+        <!-- 批量别名定义
+        指定包名，mybatis自动扫描包中的pojo类，自动定义别名，别名就是类名
+        -->
+        <package name="com.mybatis.entity"/>
+    </typeAliases>
+    <environments default="development">
+        <environment id="development">
+            <transactionManager type="JDBC"/>
+            <dataSource type="POOLED">
+                <property name="driver" value="org.sqlite.JDBC"/>
+                <!-- sqlite时间参数问题 -->
+                <property name="url" value="jdbc:sqlite:bible.db?date_string_format=yyyy-MM-dd HH:mm:ss"/>
+                <property name="username" value=""/>
+                <property name="password" value=""/>
+            </dataSource>
+        </environment>
+    </environments>
+
+    <!-- 加载映射文件-->
+    <mappers>
+        <mapper resource="mybatis/mapper/UserDao.xml"/>
+    </mappers>
+</configuration>
+
+<!--
+properties
+
+将数据库的连接参数单独配置在db.properties中，只需要在sqlMapConfig.xml中加载db.peoperties的属性值
+在sqlMapConfig.xml中就不需要对数据库连接参数硬编码
+将数据库连接参数只配置在db.properties中，原因：方便对参数统一管理，方便其他xml调用
+建议：
+不要在properties元素体内添加任何属性值，只将属性值定义在properties文件中
+在properties文件中定义属性名要有一定的特殊性，如：xxxx.xxx
+
+-->

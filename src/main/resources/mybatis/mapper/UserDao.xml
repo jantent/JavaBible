@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace命名空间，作用就是对sql进行分类化管理，理解sql隔离
+    注意：使用mapper代理的方法开发，namespace有特殊重要的作用
+-->
+<mapper namespace="com.mybatis.dao.UserDao">
+    <!-- 将sql语句封装到mappenStatement对象中，所以将id称为statement的id
+         #{id}其中的id标识接入输入的参数，参数名称为id,如果输入参数为简单类型，#{}中的参数名可以任意
+         resultType 指定输出结果的所映射的java对象类型
+    -->
+    <select id="findUserById" parameterType="int" resultType="com.mybatis.entity.User">
+        SELECT *
+        FROM user
+        WHERE id = #{id}
+    </select>
+
+    <select id="findUserByName" parameterType="String" resultType="com.mybatis.entity.User">
+        SELECT *
+        FROM user
+        WHERE username LIKE '%${value}%'
+    </select>
+
+    <!--
+    parameterType:指定输入参数类型是pojo
+    #{}中指定pojo的属性名，接受到pojo对象的属性值
+    -->
+    <insert id="insertUser" parameterType="com.mybatis.entity.User">
+        INSERT INTO USER (username, birthday, sex, address) VALUE (#{username}, #{birthday}, #{sex}, #{address})
+    </insert>
+
+</mapper>
