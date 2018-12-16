@@ -17,7 +17,10 @@ import org.junit.Test;
  */
 public class HttpClientMainApp {
 
-    static String getUrl = "https://sh.zu.ke.com/zufang/pudong/rt200600000001rp5/";
+
+
+    static String getUrl = "https://www.google.com";
+
     static String postUrl = "https://127.0.0.1:8443/test";
 
     private  static String ipUrlStr = "http://ip.taobao.com/service/getIpInfo.php?ip=";
